@@ -3,9 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0F2438">
 <title>Quotably · Custom software consulting</title>
 <meta name="description" content="Quotably helps software teams build the judgment to ship quality software at the new pace. Custom software consulting by Ben Tucker.">
 <link rel="icon" type="image/png" href="assets/q-glyph.png">
+<link rel="preload" href="assets/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
 <style>
   @font-face {
     font-family: 'Geist';
@@ -28,6 +30,7 @@
     --slate: #92A7BC;
     --muted: #7D92AA;
     --amber: #E8B04B;
+    color-scheme: dark;
   }
 
   * { box-sizing: border-box; }
@@ -125,7 +128,7 @@
     padding: 0;
     transition: color 0.2s;
   }
-  .copy-btn:hover { color: var(--slate); }
+  .copy-btn:hover, .copy-btn:focus-visible { color: var(--slate); }
 
   footer {
     display: flex;
@@ -192,11 +195,11 @@
 
 <main>
   <div class="statement">
-    <h1 class="rise d1">The bottleneck isn't<br>writing code anymore.</h1>
-    <p class="sub rise d2">It's everyone on the team able to make the right calls at the new pace. <strong>We help teams build that judgment at scale.</strong></p>
+    <h1 class="rise d1">The bottleneck isn&rsquo;t<br>writing code anymore.</h1>
+    <p class="sub rise d2">It&rsquo;s everyone on the team able to make the right calls at the new pace. <strong>We help teams build that judgment at scale.</strong></p>
     <div class="contact rise d3">
       <a class="email" id="email" href="mailto:ben@quotably.com">ben@quotably.com</a>
-      <button class="copy-btn" id="copyBtn" type="button">Copy</button>
+      <button class="copy-btn" id="copyBtn" type="button" aria-live="polite" aria-label="Copy email address">Copy</button>
     </div>
   </div>
 </main>
@@ -217,7 +220,7 @@
       navigator.clipboard.writeText('ben@quotably.com').then(function () {
         btn.textContent = 'Copied';
         setTimeout(function () { btn.textContent = 'Copy'; }, 1600);
-      });
+      }).catch(function () {});
     });
   })();
 </script>

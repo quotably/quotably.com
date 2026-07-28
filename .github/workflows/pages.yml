@@ -23,6 +23,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/configure-pages@v5
+      - name: Exclude internal docs from artifact
+        run: rm -rf docs .superpowers .claude
       - uses: actions/upload-pages-artifact@v3
         with:
           path: .
