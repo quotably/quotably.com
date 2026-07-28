@@ -1,415 +1,225 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Quotably — Custom software consulting</title>
-<meta name="description" content="Quotably, LLC — custom software consulting by Ben. Get in touch at ben@quotably.com." />
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quotably · Custom software consulting</title>
+<meta name="description" content="Quotably helps software teams build the judgment to ship quality software at the new pace. Custom software consulting by Ben Tucker.">
+<link rel="icon" type="image/png" href="assets/q-glyph.png">
 <style>
+  @font-face {
+    font-family: 'Geist';
+    src: url('assets/fonts/geist-latin.woff2') format('woff2');
+    font-weight: 100 900;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Geist Mono';
+    src: url('assets/fonts/geist-mono-latin.woff2') format('woff2');
+    font-weight: 100 900;
+    font-display: swap;
+  }
+
   :root {
     --ink: #0F2438;
-    --ink-soft: #3a4a5d;
-    --ink-faint: #7a8594;
-    --paper: #F2ECE4;
-    --paper-deep: #EADFD1;
-    --rule: #d9ccba;
-    --accent: #B8734A;
+    --ink-deep: #0A1A2B;
+    --ink-lift: #12293F;
+    --bone: #F4EFE6;
+    --slate: #92A7BC;
+    --muted: #7D92AA;
+    --amber: #E8B04B;
   }
 
   * { box-sizing: border-box; }
 
-  html, body {
-    margin: 0;
-    padding: 0;
-    background: var(--paper);
-    color: var(--ink);
-    font-family: 'Inter', system-ui, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
-    overflow-x: hidden;
-  }
+  html, body { margin: 0; padding: 0; }
 
   body {
     min-height: 100vh;
     min-height: 100dvh;
+    background: radial-gradient(120% 90% at 20% 0%, var(--ink-lift) 0%, var(--ink) 45%, var(--ink-deep) 100%);
+    color: var(--bone);
+    font-family: 'Geist', -apple-system, 'Helvetica Neue', sans-serif;
+    -webkit-font-smoothing: antialiased;
     display: grid;
     grid-template-rows: auto 1fr auto;
-    position: relative;
-  }
-
-  body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    background:
-      radial-gradient(ellipse at top, rgba(15, 36, 56, 0.035), transparent 60%),
-      radial-gradient(ellipse at bottom, rgba(15, 36, 56, 0.025), transparent 60%);
-    z-index: 0;
+    overflow-x: hidden;
   }
 
   header, main, footer {
-    position: relative;
-    z-index: 1;
-    padding: 0 32px;
+    padding-left: clamp(24px, 6vw, 88px);
+    padding-right: clamp(24px, 6vw, 88px);
   }
 
   header {
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    padding-top: 28px;
-    padding-bottom: 28px;
-    font-size: 13px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--ink-soft);
-  }
-
-  header .mark {
-    display: inline-flex;
     align-items: center;
+    padding-top: 32px;
+    padding-bottom: 32px;
   }
-
-  header .mark img {
-    height: 28px;
+  header img {
+    height: 30px;
     width: auto;
-    display: block;
+    filter: brightness(0) invert(1);
+    opacity: 0.92;
   }
-
-  header .est {
-    font-family: 'Inter', sans-serif;
-    font-weight: 400;
-  }
-
-  main {
-    display: grid;
-    place-items: center;
-    text-align: center;
-    padding-top: 2vh;
-    padding-bottom: 4vh;
-  }
-
-  .hero {
-    max-width: 860px;
-    width: 100%;
-  }
-
-  .eyebrow {
-    font-family: 'Inter', sans-serif;
-    font-size: 12px;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--ink-soft);
-    margin: 0 auto 28px;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    opacity: 0;
-    animation: rise 0.8s 0.1s cubic-bezier(.2,.7,.2,1) forwards;
-  }
-
-  .wordmark-wrap {
-    display: block;
-    width: 100%;
-  }
-
-  .eyebrow::before,
-  .eyebrow::after {
-    content: "";
-    width: 28px;
-    height: 1px;
-    background: var(--rule);
-  }
-
-  .wordmark {
-    display: block;
-    margin: 0 auto;
-    max-width: min(860px, 82vw);
-    width: 100%;
-    height: auto;
-    opacity: 0;
-    transform: translateY(10px) scale(0.985);
-    animation: wordmarkIn 1.2s 0.2s cubic-bezier(.2,.7,.2,1) forwards;
-  }
-  @keyframes wordmarkIn {
-    to { opacity: 1; transform: translateY(0) scale(1); }
-  }
-
-  .quote-stage {
-    margin: 48px auto 0;
-    max-width: 680px;
-    opacity: 0;
-    animation: rise 0.8s 1.3s cubic-bezier(.2,.7,.2,1) forwards;
-  }
-
-  @keyframes rise {
-    from { opacity: 0; transform: translateY(10px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  .quote-text {
-    font-family: 'Fraunces', serif;
-    font-weight: 400;
-    font-style: italic;
-    font-size: clamp(20px, 2.3vw, 27px);
-    line-height: 1.55;
-    color: var(--ink);
-    text-wrap: balance;
-    max-width: 620px;
-    margin: 0 auto;
-    text-indent: -0.42em;
-    padding-left: 0.42em;
-    padding-right: 0.42em;
-  }
-
-  .quote-text .open,
-  .quote-text .close {
-    font-style: italic;
-    color: var(--accent);
-    font-weight: 500;
-    font-size: 1.35em;
-    line-height: 0;
-    vertical-align: -0.12em;
-  }
-  .quote-text .open { margin-right: 0.04em; }
-  .quote-text .close { margin-left: 0.04em; }
-
-  .quote-attrib {
-    margin-top: 18px;
-    font-family: 'Inter', sans-serif;
-    font-size: 12px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--ink-soft);
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .quote-attrib::before {
-    content: "";
-    width: 18px;
-    height: 1px;
-    background: var(--ink-soft);
-    opacity: 0.5;
-  }
-
-  .quote-attrib .src {
-    text-transform: none;
-    letter-spacing: 0.04em;
-    color: var(--ink-faint);
-    font-style: italic;
-  }
-
-  .divider {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 14px;
-    margin: 56px auto 40px;
-    max-width: 320px;
-    opacity: 0;
-    animation: rise 0.8s 1.6s cubic-bezier(.2,.7,.2,1) forwards;
-  }
-
-  .divider .line {
-    flex: 1;
-    height: 1px;
-    background: var(--rule);
-  }
-
-  .divider .dot {
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background: var(--ink);
-    opacity: 0.5;
-  }
-
-  .cta {
-    display: inline-flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 14px;
-    opacity: 0;
-    animation: rise 0.8s 1.85s cubic-bezier(.2,.7,.2,1) forwards;
-  }
-
-  .cta-label {
-    font-family: 'Inter', sans-serif;
-    font-size: 12px;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--ink-soft);
-  }
-
-  .email {
-    font-family: 'Fraunces', serif;
-    font-weight: 500;
-    font-size: clamp(28px, 4.2vw, 44px);
-    letter-spacing: -0.01em;
-    color: var(--ink);
-    text-decoration: none;
-    position: relative;
-    padding: 0 4px 6px;
-    transition: color 0.2s ease;
-  }
-
-  .email .q {
-    font-style: italic;
-    display: inline-block;
-    transition: transform 0.4s cubic-bezier(.2,1.4,.3,1), color 0.3s;
-  }
-  .email:hover .q {
-    transform: translateY(-0.15em) rotate(-8deg);
-    color: var(--accent);
-  }
-
-  .email::after {
-    content: "";
-    position: absolute;
-    left: 4px;
-    right: 4px;
-    bottom: 0;
-    height: 1px;
-    background: var(--ink);
-    transform: scaleX(0.3);
-    transform-origin: center;
-    transition: transform 0.35s cubic-bezier(.2,.7,.2,1), opacity 0.3s;
-    opacity: 0.35;
-  }
-  .email:hover::after,
-  .email:focus-visible::after {
-    transform: scaleX(1);
-    opacity: 1;
-  }
-
-  .copy-hint {
-    margin-top: 6px;
-    font-family: 'Inter', sans-serif;
+  .tag {
+    font-family: 'Geist Mono', ui-monospace, Menlo, monospace;
     font-size: 11px;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
-    color: var(--ink-faint);
-    height: 14px;
+    color: var(--muted);
+  }
+
+  main { display: flex; align-items: center; }
+
+  .statement { max-width: 880px; }
+
+  h1 {
+    font-size: clamp(38px, 6.2vw, 76px);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.06;
+    margin: 0;
+    color: var(--bone);
+  }
+
+  .sub {
+    margin: 28px 0 0;
+    font-size: clamp(16px, 1.6vw, 20px);
+    font-weight: 500;
+    line-height: 1.6;
+    color: var(--slate);
+    max-width: 56ch;
+  }
+  .sub strong { color: var(--bone); font-weight: 600; }
+
+  .contact {
+    margin-top: 40px;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 18px;
+  }
+  .email {
+    font-size: clamp(17px, 1.7vw, 22px);
+    font-weight: 600;
+    color: var(--amber);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(232, 176, 75, 0.35);
+    padding-bottom: 3px;
+    transition: border-color 0.25s;
+  }
+  .email:hover,
+  .email:focus-visible { border-color: var(--amber); }
+
+  .copy-btn {
+    font-family: 'Geist Mono', ui-monospace, Menlo, monospace;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
     transition: color 0.2s;
   }
-  .copy-hint.copied { color: var(--accent); }
+  .copy-btn:hover { color: var(--slate); }
 
   footer {
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    padding-bottom: 28px;
-    padding-top: 28px;
-    font-family: 'Inter', sans-serif;
-    font-size: 12px;
-    letter-spacing: 0.06em;
-    color: var(--ink-soft);
+    align-items: flex-end;
+    gap: 32px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+  .quote {
+    margin: 0;
+  }
+  .quote p {
+    font-family: 'Iowan Old Style', Palatino, Georgia, serif;
+    font-style: italic;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--muted);
+    max-width: 44ch;
+    margin: 0;
+  }
+  .quote figcaption {
+    margin-top: 6px;
+    font-family: 'Geist Mono', ui-monospace, Menlo, monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  footer > img {
+    width: clamp(120px, 14vw, 190px);
+    height: auto;
+    filter: brightness(0) invert(1);
+    opacity: 0.9;
   }
 
-  footer .left,
-  footer .right {
-    display: inline-flex;
-    align-items: center;
-    gap: 14px;
+  .rise {
+    opacity: 0;
+    transform: translateY(14px);
+    animation: rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
   }
-
-  footer a {
-    color: inherit;
-    text-decoration: none;
-    border-bottom: 1px solid transparent;
-    transition: border-color 0.2s;
-  }
-  footer a:hover { border-color: var(--ink-soft); }
-
-  @media (max-width: 620px) {
-    header { font-size: 11px; }
-    header .est { display: none; }
-    footer { flex-direction: column; gap: 10px; align-items: center; text-align: center; }
-    .quote-stage { min-height: 180px; margin-top: 36px; }
-    .divider { margin: 36px auto 28px; }
-  }
+  .d1 { animation-delay: 0.1s; }
+  .d2 { animation-delay: 0.3s; }
+  .d3 { animation-delay: 0.5s; }
+  .d4 { animation-delay: 0.8s; }
+  @keyframes rise { to { opacity: 1; transform: none; } }
 
   @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
-      animation-duration: 0.001s !important;
-      animation-delay: 0s !important;
-      transition-duration: 0.1s !important;
-    }
+    .rise { animation-duration: 0.001s; animation-delay: 0s; }
+  }
+
+  @media (max-width: 640px) {
+    footer { flex-direction: column; align-items: flex-start; }
+    footer > img { order: -1; }
   }
 </style>
 </head>
 <body>
 
-<header>
-  <span class="mark" aria-label="Quotably">
-    <img src="assets/q-glyph.png" alt="Quotably" />
-  </span>
-  <span class="est">Est. 2025</span>
+<header class="rise d1">
+  <img src="assets/q-glyph.png" alt="Quotably Q monogram">
+  <span class="tag">Custom Software Consulting</span>
 </header>
 
 <main>
-  <section class="hero">
-    <div class="eyebrow">Rethinking how software gets made</div>
-
-    <div class="wordmark-wrap">
-      <h1 style="margin:0">
-        <img class="wordmark" src="assets/wordmark.png" alt="Quotably" />
-      </h1>
+  <div class="statement">
+    <h1 class="rise d1">The bottleneck isn't<br>writing code anymore.</h1>
+    <p class="sub rise d2">It's everyone on the team able to make the right calls at the new pace. <strong>We help teams build that judgment at scale.</strong></p>
+    <div class="contact rise d3">
+      <a class="email" id="email" href="mailto:ben@quotably.com">ben@quotably.com</a>
+      <button class="copy-btn" id="copyBtn" type="button">Copy</button>
     </div>
-
-    <div class="quote-stage">
-      <p class="quote-text">
-        <span class="open">&ldquo;</span>The most damaging phrase in the language is &lsquo;We&rsquo;ve always done it this way!&rsquo;<span class="close">&rdquo;</span>
-      </p>
-      <div class="quote-attrib">
-        Rear Admiral Grace Hopper
-        <span class="src">Information Week, March 1987</span>
-      </div>
-    </div>
-
-    <div class="divider" aria-hidden="true">
-      <span class="line"></span>
-      <span class="dot"></span>
-      <span class="line"></span>
-    </div>
-
-    <div class="cta">
-      <span class="cta-label"></span>
-      <a class="email" href="mailto:ben@quotably.com?subject=Project%20inquiry" id="email">
-
-      </a>
-      <div class="copy-hint" id="copyHint"></div>
-    </div>
-  </section>
+  </div>
 </main>
 
-<footer>
-  <span class="left">&copy; 2026 Quotably, LLC</span>
-  <span class="right"><a href="mailto:ben@quotably.com">ben@quotably.com</a></span>
+<footer class="rise d4">
+  <figure class="quote">
+    <p>&ldquo;The most damaging phrase in the language is &lsquo;We&rsquo;ve always done it this way.&rsquo;&rdquo;</p>
+    <figcaption>Rear Adm. Grace Hopper, 1987</figcaption>
+  </figure>
+  <img src="assets/wordmark.png" alt="Quotably">
 </footer>
 
 <script>
-  const email = document.getElementById('email');
-  const hint = document.getElementById('copyHint');
-
-  email.addEventListener('click', (e) => {
-    if (e.shiftKey || e.metaKey || e.ctrlKey) {
-      e.preventDefault();
-      navigator.clipboard?.writeText('ben@quotably.com').then(() => {
-        hint.textContent = 'Copied to clipboard';
-        hint.classList.add('copied');
-        setTimeout(() => {
-          hint.textContent = 'Shift-click to copy';
-          hint.classList.remove('copied');
-        }, 1800);
+  (function () {
+    var btn = document.getElementById('copyBtn');
+    if (!navigator.clipboard) { btn.hidden = true; return; }
+    btn.addEventListener('click', function () {
+      navigator.clipboard.writeText('ben@quotably.com').then(function () {
+        btn.textContent = 'Copied';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1600);
       });
-    }
-  });
+    });
+  })();
 </script>
 
 </body>
